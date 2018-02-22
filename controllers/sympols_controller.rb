@@ -5,15 +5,35 @@ module SympolsController
     puts JSON.pretty_generate(sympols)
   end
 
-  def sympols_search_action
+  def name_search_action
     print "Enter a name to search by: "
-    search_term = gets.chomp
+    search_name = gets.chomp
 
-    sympol_hash = get_request("/sympols?search=#{search_term}")
-    sympols = Sympol.convert_hashs(product_hashs)
+    sympol_hashs = get_request("/sympols?search_name=#{search_name}")
+    sympols = Sympol.convert_hashs(sympol_hashs)
 
     sympols_index_view(sympols)
   end 
+
+  def origin_search_action
+    print "Enter the origin to search by: "
+    search_origin = gets.chomp
+
+    sympol_hashs = get_request("/sympols?search_origin=#{search_origin}")
+    sympols = Sympol.convert_hashs(sympol_hashs)
+
+    origin_index_view(sympols)
+  end   
+
+  def description_search_action
+    print "Type stuff about the sympol: "
+    search_description = gets.chomp
+
+    sympol_hashs = get_request("/sympols?search_description=#{search_description}")
+    sympols = Sympol.convert_hashs(sympol_hashs)
+
+    sympols_index_view(sympols)
+  end
 
   def sympols_show_action
     print "Enter sympol id: "
