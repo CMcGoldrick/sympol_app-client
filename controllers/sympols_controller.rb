@@ -1,9 +1,15 @@
 module SympolsController
-  def sympols_index_action
-    response = Unirest.get("http://localhost:3000/sympols")
-    sympols = response.body
-    puts JSON.pretty_generate(sympols)
-  end
+
+# search actions
+  def trait_search_action
+    print "Enter a trait to search by: "
+    search_trait = gets.chomp
+
+    sympol_hashes = Unirest.get("http://localhost:3000/sympols?search_trait=#{search_trait}").body
+    sympols = Sympol.convert_hashs(sympol_hashes)
+
+    sympols_index_view(sympols)
+  end 
 
   def name_search_action
     print "Enter a name to search by: "
@@ -34,6 +40,14 @@ module SympolsController
 
     sympols_index_view(sympols)
   end
+  
+  
+# get, post, patch, delete actions
+  def sympols_index_action
+    response = Unirest.get("http://localhost:3000/sympols")
+    sympols = response.body
+    puts JSON.pretty_generate(sympols)
+  end  
 
   def sympols_show_action
     print "Enter sympol id: "
@@ -64,7 +78,6 @@ module SympolsController
     sympol = response.body
     puts JSON.pretty_generate(sympol)
   end
-
 
   def sympols_update_action
     print 'enter sympol id: '

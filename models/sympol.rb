@@ -1,11 +1,12 @@
 class Sympol
-  attr_accessor :id, :name, :origin, :description
+  attr_accessor :id, :name, :origin, :description, :traits
 
   def initialize(input_options)
     @id = input_options["id"]
     @name = input_options["name"]
     @origin = input_options["origin"]
     @description = input_options["description"]
+    @traits = input_options["traits"]
   end
   
   def self.convert_hashs(sympol_hashs)
@@ -16,5 +17,8 @@ class Sympol
     collection
   end
 end
+
+
+
 
 
